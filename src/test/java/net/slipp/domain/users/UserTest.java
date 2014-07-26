@@ -1,7 +1,9 @@
 package net.slipp.domain.users;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -47,5 +49,19 @@ public class UserTest {
 		authenticate = new Authenticate("userId", "password2");
 		assertFalse(user.matchPassword(authenticate));
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void updateWhenMisMatchUserId() throws Exception {
+		User user = new User("userId", "password", "name", "javajigi@slipp.net");
+		User updateUser = new User("user", "password", "sanjigi", "sanjigi@slipp.net");
+		user.update(updateUser);
+	}
 
+	@Test
+	public void update() throws Exception {
+		User user = new User("userId", "password", "name", "javajigi@slipp.net");
+		User updateUser = new User("userId", "password", "sanjigi", "sanjigi@slipp.net");
+		User updatedUser = user.update(updateUser);
+		assertThat(updatedUser, is(updateUser));
+	}
 }
