@@ -21,7 +21,7 @@ public class User {
 	public User() {
 		
 	}
-
+	
 	public User(String userId, String password, String name, String email) {
 		this.userId = userId;
 		this.password = password;
@@ -59,6 +59,21 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public boolean matchPassword(Authenticate authenticate) {
+		if (this.password == null) {
+			return false;
+		}
+		
+		return authenticate.matchPassword(this.password);
+	}
+	
+	public boolean matchUserId(String inputUserId) {
+		if (inputUserId == null) {
+			return false;
+		}
+		return inputUserId.equals(this.userId);
 	}
 	
 	@Override
