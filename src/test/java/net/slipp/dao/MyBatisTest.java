@@ -35,7 +35,7 @@ public class MyBatisTest {
 		sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		populator.addScript(new ClassPathResource("slipp.sql"));
+		populator.addScript(new ClassPathResource("db/migration/V1__Create_Users_table.sql"));
 		DatabasePopulatorUtils.execute(populator, getDataSource());
 		log.info("database initialized success!");
 	}
@@ -43,7 +43,7 @@ public class MyBatisTest {
 	private DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.h2.Driver");
-		dataSource.setUrl("jdbc:h2:~/slipp");
+		dataSource.setUrl("jdbc:h2:~/slipp-test");
 		dataSource.setUsername("sa");
 		return dataSource;
 	}
